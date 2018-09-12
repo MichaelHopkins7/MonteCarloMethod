@@ -13,6 +13,9 @@ namespace MonteCarlo
             int counter;
             int numOps;
             int inRadius;
+            double distance;
+            XYCoords xySet;
+            XYCoords xyStore;
             Random randomGen = new Random();
             do
             {
@@ -23,11 +26,13 @@ namespace MonteCarlo
                 {
                     do
                     {
-
-                        XYCoords xySet = new XYCoords(randomGen);
-                        XYCoords xyStore = new XYCoords(xySet.x, xySet.y);
-
-
+                        xySet = new XYCoords(randomGen);
+                        xyStore = new XYCoords(xySet.x, xySet.y);
+                        distance = Distance(xyStore);
+                        if (distance <= 1.0)
+                        {
+                            ++inRadius;
+                        }
                         counter++;
                     }
                     while (counter < numOps);
@@ -37,7 +42,7 @@ namespace MonteCarlo
             while (true);
         }
 
-        public double distance(XYCoords xAndY) => Math.Sqrt((xAndY.x * xAndY.x) + (xAndY.y * xAndY.y));
+        static double Distance(XYCoords xAndY) => Math.Sqrt((xAndY.x * xAndY.x) + (xAndY.y * xAndY.y));
         
     }
 
